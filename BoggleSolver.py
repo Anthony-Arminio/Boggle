@@ -3,11 +3,12 @@ import math
 from copy import copy
 
 class Agent():
-    def __init__(self, board):
+    def __init__(self, board, minimumWordLength):
         self.board = self.convertBoard(board)
         self.boardSize = len(self.board)
         self.boardWidth = math.floor(math.sqrt(self.boardSize))
         self.nonexistentLetters = self.findNonexistentLetters()
+        self.minimumWordLength = minimumWordLength
     
     def run(self):
         words = open('words_alpha.txt','r')
@@ -26,6 +27,8 @@ class Agent():
     
     def isPlayable(self, location, word, charIndex, usedTiles):
         if charIndex == -1:
+            if len(word) < self.minimumWordLength:
+                return False
             for char in word:
                 if char in self.nonexistentLetters:
                     return False
@@ -98,6 +101,7 @@ class Agent():
             for char in tile:
                 if char.lower() in nonexistentLetters:
                     nonexistentLetters.remove(char.lower())
+        print(nonexistentLetters)
         return nonexistentLetters
         
     def row(self, location):
@@ -118,7 +122,5 @@ class Agent():
         return convertedBoard
                 
 
-boggleSolver = Agent(
-    "ELTNAOOSNPSSAnUNCOGKFNIAOA"
-)
+boggleSolver = Agent("OEBTECOUNESESAEQuSDTNNAOEN", 5)
 boggleSolver.run()
