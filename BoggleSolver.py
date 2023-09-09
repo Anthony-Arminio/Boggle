@@ -31,9 +31,14 @@ class Agent():
                 
             return False
         else:
-            if self.board[location].lower() != word[charIndex] or (location in usedTiles):
+            if len(self.board[location]) == 1:
+                tileLength = 1
+            else:
+                tileLength = 2
+
+            if (self.board[location].lower() != word[charIndex] or (location in usedTiles)) and not (charIndex + 1 < len(word) and self.board[location].lower() == word[charIndex] + word[charIndex + 1]):
                 return False
-            elif charIndex == len(word) - 1:
+            elif charIndex + tileLength - 1 == len(word) - 1:
                 return True
             
             usedTiles.append(location)
@@ -43,42 +48,42 @@ class Agent():
 
             # NW
             if row - 1 > 0 and column - 1 > 0:
-                if self.isPlayable(location - self.boardWidth - 1, word, charIndex + 1, copy(usedTiles)):
+                if self.isPlayable(location - self.boardWidth - 1, word, charIndex + tileLength, copy(usedTiles)):
                     return True
             
             # N
             if row - 1 > 0:
-                if self.isPlayable(location - self.boardWidth, word, charIndex + 1, copy(usedTiles)):
+                if self.isPlayable(location - self.boardWidth, word, charIndex + tileLength, copy(usedTiles)):
                     return True
                 
             # NE
             if row - 1 > 0 and column + 1 <= self.boardWidth:
-                if self.isPlayable(location - self.boardWidth + 1, word, charIndex + 1, copy(usedTiles)):
+                if self.isPlayable(location - self.boardWidth + 1, word, charIndex + tileLength, copy(usedTiles)):
                     return True
             
             # W
             if column - 1 > 0:
-                if self.isPlayable(location - 1, word, charIndex + 1, copy(usedTiles)):
+                if self.isPlayable(location - 1, word, charIndex + tileLength, copy(usedTiles)):
                     return True
                 
             # E
             if column + 1 <= self.boardWidth:
-                if self.isPlayable(location + 1, word, charIndex + 1, copy(usedTiles)):
+                if self.isPlayable(location + 1, word, charIndex + tileLength, copy(usedTiles)):
                     return True
             
             # SW
             if row + 1 <= self.boardWidth and column - 1 > 0:
-                if self.isPlayable(location + self.boardWidth - 1, word, charIndex + 1, copy(usedTiles)):
+                if self.isPlayable(location + self.boardWidth - 1, word, charIndex + tileLength, copy(usedTiles)):
                     return True
             
             # S
             if row + 1 <= self.boardWidth:
-                if self.isPlayable(location + self.boardWidth, word, charIndex + 1, copy(usedTiles)):
+                if self.isPlayable(location + self.boardWidth, word, charIndex + tileLength, copy(usedTiles)):
                     return True
                 
             # SE
             if row + 1 <= self.boardWidth and column + 1 <= self.boardWidth:
-                if self.isPlayable(location + self.boardWidth + 1, word, charIndex + 1, copy(usedTiles)):
+                if self.isPlayable(location + self.boardWidth + 1, word, charIndex + tileLength, copy(usedTiles)):
                     return True
 
             return False
@@ -102,6 +107,6 @@ class Agent():
                 
 
 boggleSolver = Agent(
-    "EHAWSTTIEITASTTTIAWURETBW"
+    "EHAWSTTIEITASTTTInAWURETBW"
 )
 boggleSolver.run()
