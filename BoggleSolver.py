@@ -7,6 +7,7 @@ class Agent():
         self.board = self.convertBoard(board)
         self.boardSize = len(self.board)
         self.boardWidth = math.floor(math.sqrt(self.boardSize))
+        self.nonexistentLetters = self.findNonexistentLetters()
     
     def run(self):
         words = open('words_alpha.txt','r')
@@ -25,6 +26,9 @@ class Agent():
     
     def isPlayable(self, location, word, charIndex, usedTiles):
         if charIndex == -1:
+            for char in word:
+                if char in self.nonexistentLetters:
+                    return False
             for tile in range(len(self.board)):
                 if self.isPlayable(tile, word, charIndex + 1, copy(usedTiles)):
                     return True
@@ -87,6 +91,14 @@ class Agent():
                     return True
 
             return False
+    
+    def findNonexistentLetters(self):
+        nonexistentLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+        for tile in self.board:
+            for char in tile:
+                if char.lower() in nonexistentLetters:
+                    nonexistentLetters.remove(char.lower())
+        return nonexistentLetters
         
     def row(self, location):
         return math.floor(location / self.boardWidth) + 1
@@ -107,6 +119,6 @@ class Agent():
                 
 
 boggleSolver = Agent(
-    "EHAWSTTIEITASTTTInAWURETBW"
+    "ELTNAOOSNPSSAnUNCOGKFNIAOA"
 )
 boggleSolver.run()
