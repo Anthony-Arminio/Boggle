@@ -43,7 +43,7 @@ class Agent():
             else:
                 tileLength = 2
 
-            if (self.board[location].lower() != word[charIndex] or (location in usedTiles)) and not (charIndex + 1 < len(word) and self.board[location].lower() == word[charIndex] + word[charIndex + 1]):
+            if (self.board[location].lower() != word[charIndex] and not (charIndex + 1 < len(word) and self.board[location].lower() == word[charIndex] + word[charIndex + 1])) or (location in usedTiles):
                 return False
             elif charIndex + tileLength - 1 == len(word) - 1:
                 return True
@@ -122,5 +122,5 @@ class Agent():
         return convertedBoard
                 
 
-boggleSolver = Agent("OEBTECOUNESESAEQuSDTNNAOEN", 5)
+boggleSolver = Agent("RNUAAOSWTTLODNNAEOYErBATEI", 3)
 boggleSolver.run()
