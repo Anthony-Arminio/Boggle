@@ -120,7 +120,7 @@ class Agent():
                     convertedBoard.append(board[tile])
         print(convertedBoard)
         return convertedBoard
-                
 
-boggleSolver = Agent("RNUAAOSWTTLODNNAEOYErBATEI", 3)
+
+boggleSolver = Agent("ABCDEFGHIJKLMNOPQuRSTVWXYZ", 3)
 boggleSolver.run()
