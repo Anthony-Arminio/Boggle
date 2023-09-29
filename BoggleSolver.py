@@ -122,5 +122,5 @@ class Agent():
         return convertedBoard
 
 
-boggleSolver = Agent("TOREPAERPLTTHeASORNKTOCEER", 3)
+boggleSolver = Agent("YEEGDECTSLDDOANQuIJAMGFNRE", 3)
 boggleSolver.run()
