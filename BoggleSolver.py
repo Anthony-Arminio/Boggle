@@ -38,10 +38,7 @@ class Agent():
                 
             return False
         else:
-            if len(self.board[location]) == 1:
-                tileLength = 1
-            else:
-                tileLength = 2
+            tileLength = len(self.board[location])
 
             if (self.board[location].lower() != word[charIndex] and not (charIndex + 1 < len(word) and self.board[location].lower() == word[charIndex] + word[charIndex + 1])) or (location in usedTiles):
                 return False
@@ -118,9 +115,22 @@ class Agent():
                     convertedBoard.append(board[tile] + board[tile + 1])
                 else:
                     convertedBoard.append(board[tile])
-        print(convertedBoard)
+        self.printBoard(convertedBoard)
         return convertedBoard
+    
+    def printBoard(self, board):
+        print(" ================= ")
+        for row in range(5):
+            print("| ", end = ' ')
+            for column in range(5):
+                tile = board[5 * row + column]
+                print(tile, end = ' ')
+                if(len(tile) == 1):
+                    print("", end = ' ')
+            print("|")
+        print(" ================= ")
+    
 
 
-boggleSolver = Agent("YEEGDECTSLDDOANQuIJAMGFNRE", 3)
+boggleSolver = Agent("NIREUOAOEBAIETQuFIIENFDCON", 3)
 boggleSolver.run()
